@@ -1,0 +1,629 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>code-debug Documentation</title>
+                <meta name="robots" content="noindex" />
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="chapter_0.html">简介</a></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 安装 code-debug</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 使用 code-debug</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> code-debug 调试器原理</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 核心代码讲解</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">code-debug Documentation</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="简介"><a class="header" href="#简介">简介</a></h1>
+<p><strong>code-debug</strong>是一个源代码级操作系统调试器。目前对<code>rCore-Tutorial-v3</code>的支持比较好，<code>ArceOS</code>和<code>Starry</code>的内核态也可以调试。</p>
+<p>如果您想debug其他的os，您可以按照<a href="./chapter_1.html">这里</a>编写配置文件。如果想对插件源代码作出自己的修改，可以阅读<a href="./chapter_4.html">这里</a>。</p>
+<p>由于开发者水平有限，本工具还存在很多可以完善的地方。欢迎大家提issue或贡献代码（或者写一个你自己的魔改版本）</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="安装code-debug"><a class="header" href="#安装code-debug">安装code-debug</a></h1>
+<h2 id="安装与使用"><a class="header" href="#安装与使用">安装与使用</a></h2>
+<h4 id="获取插件"><a class="header" href="#获取插件">获取插件</a></h4>
+<p>在<a href="https://github.com/chenzhiy2001/code-debug/releases">Release</a>中下载vsix格式的安装包，回到您的VSCode，按<code>Ctrl-Shift-P</code>输入vsix，点击<code>Extensions: Install from VSIX</code></p>
+<h4 id="用自动配置脚本配置环境"><a class="header" href="#用自动配置脚本配置环境">用自动配置脚本配置环境</a></h4>
+<ol>
+<li>下载<a href="https://github.com/chenzhiy2001/code-debug/blob/master/test.sh">test.sh</a>，尽量在home目录下运行</li>
+<li>执行chmod +x test.sh命令，为文件添加权限</li>
+<li>执行./test.sh，开始执行，请保证网络畅通，可能要很长时间</li>
+<li>执行完毕后配置环境变量：</li>
+</ol>
+<pre><code class="language-plain">vim ~/.bashrc
+在.bashrc最后面添加以下语句
+export PATH=$PATH:/home/zly/qemu-system-riscv64/build
+export PATH=$PATH:/opt/riscv/bin
+退出
+source ~/.bashrc
+</code></pre>
+<ol start="5">
+<li>使用命令检查是否安装成功：
+<ol>
+<li>rustc --version   (rustc 1.74.0-nightly (59a829484 2023-08-30))</li>
+<li>npm -v  (版本在9以上)</li>
+<li>node -v (版本在18以上)</li>
+<li>qemu-system-riscv64 --version  （QEMU emulator version 7.0.0）</li>
+<li>/opt/riscv/bin/riscv64-unknown-elf-gdb  （出现（gdb命令行，输入以下命令，有输出的话，表示有python支持））</li>
+</ol>
+</li>
+</ol>
+<pre><code class="language-plain">(gdb) python
+print(&quot;114514&quot;)
+end 
+</code></pre>
+<ol start="6">
+<li>如果还是有问题请查看test.sh文件，里面用回车符隔开了下载各个工具的命令，可以把它单独复制出来到新的文件重新运行</li>
+</ol>
+<h3 id="待调试os的配置"><a class="header" href="#待调试os的配置">待调试OS的配置</a></h3>
+<ol>
+<li>
+<p>在仓库目录下(.../code-debug)运行 npm install 命令</p>
+</li>
+<li>
+<p>在vscode中打开本项目，按F5执行，会弹出一个新的窗口</p>
+</li>
+<li>
+<p>在新窗口中打开rCore-Tutorial-v3项目，在 .vscode 文件夹中添加 launch.json文件，并输入以下内容，然后保存并再编译一遍rCore，接着在新窗口内按F5就可以启动gdb并调试。</p>
+<p>如果GDB并没有正常启动，可以尝试把下面的gdbpath改成绝对路径(如“/home/username/riscv64-unknown-elf-toolchain-10.2.0-2020.12.8-x86_64-linux-ubuntu14/bin”)。</p>
+<pre><code>//launch.json
+{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;type&quot;: &quot;gdb&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;name&quot;: &quot;Attach to Qemu&quot;,
+            &quot;executable&quot;: &quot;${userHome}/rCore-Tutorial-v3/os/target/riscv64gc-unknown-none-elf/release/os&quot;,
+            &quot;target&quot;: &quot;:1234&quot;,//不能和Qemu开放的tcp端口重叠
+            &quot;remote&quot;: true,
+            &quot;cwd&quot;: &quot;${workspaceRoot}&quot;,
+            &quot;valuesFormatting&quot;: &quot;parseText&quot;,
+            &quot;gdbpath&quot;: &quot;riscv64-unknown-elf-gdb&quot;,
+            &quot;showDevDebugOutput&quot;:true,
+            &quot;internalConsoleOptions&quot;: &quot;openOnSessionStart&quot;,
+            &quot;printCalls&quot;: true,
+            &quot;stopAtConnect&quot;: true,
+            &quot;qemuPath&quot;: &quot;qemu-system-riscv64&quot;,
+            &quot;qemuArgs&quot;: [
+                &quot;-M&quot;,
+                &quot;128m&quot;,
+                &quot;-machine&quot;,
+                &quot;virt&quot;,
+                &quot;-bios&quot;,
+                &quot;${userHome}/rCore-Tutorial-v3/bootloader/rustsbi-qemu.bin&quot;,
+                &quot;-display&quot;,
+                &quot;none&quot;,
+                &quot;-device&quot;,
+                &quot;loader,file=${userHome}/rCore-Tutorial-v3/os/target/riscv64gc-unknown-none-elf/release/os.bin,addr=0x80200000&quot;,
+                &quot;-drive&quot;,
+                &quot;file=${userHome}/rCore-Tutorial-v3/user/target/riscv64gc-unknown-none-elf/release/fs.img,if=none,format=raw,id=x0&quot;,
+                &quot;-device&quot;,
+                &quot;virtio-blk-device,drive=x0&quot;,
+                &quot;-device&quot;,
+                &quot;virtio-gpu-device&quot;,
+                &quot;-device&quot;,
+                &quot;virtio-keyboard-device&quot;,
+                &quot;-device&quot;,
+                &quot;virtio-mouse-device&quot;,
+                &quot;-serial&quot;,
+                &quot;stdio&quot;,
+                &quot;-serial&quot;,
+                &quot;pty&quot;,
+                &quot;-s&quot;,
+                &quot;-S&quot;
+            ],
+         &quot;userSpaceDebuggeeFolder&quot;:&quot;${userHome}/rCore-Tutorial-v3/user/target/riscv64gc-unknown-none-elf/release/&quot;,
+         &quot;KERNEL_IN_BREAKPOINTS_LINE&quot;:65, // src/trap/mod.rs中内核入口行号。可能要修改
+         &quot;KERNEL_OUT_BREAKPOINTS_LINE&quot;:124, // src/trap/mod.rs中内核出口行号。可能要修改
+         &quot;GO_TO_KERNEL_LINE&quot;:30, // src/trap/mod.rs中，用于从用户态返回内核的断点行号。在rCore-Tutorial-v3中，这是set_user_trap_entry函数中的stvec::write(TRAMPOLINE as usize, TrapMode::Direct);语句。
+         &quot;KERNEL_IN_BREAKPOINTS_FILENAME&quot;:&quot;src/trap/mod.rs&quot;,
+         &quot;KERNEL_OUT_BREAKPOINTS_FILENAME&quot;:&quot;src/trap/mod.rs&quot;,
+         &quot;GO_TO_KERNEL_FILENAME&quot;:&quot;src/trap/mod.rs&quot;
+        },
+    ]
+}
+</code></pre>
+<ul>
+<li>这里解释一下<code>KERNEL_IN_BREAKPOINTS_LINE</code>和<code>GO_TO_KERNEL_LINE</code>的区别。以rCore-Tutorial-v3为例，<code>KERNEL_IN_BREAKPOINTS_LINE</code>对应<code>trap_return</code>函数的断点，而<code>GO_TO_KERNEL_LINE</code>对应<code>trap_return</code>函数调用的<code>set_user_trap_entry</code>子函数的断点。而<code>set_user_trap_entry</code>子函数实际上只有一行语句：<code>stvec::write(TRAMPOLINE as usize, TrapMode::Direct);</code>。也就是说，<code>KERNEL_IN_BREAKPOINTS_LINE</code>指向中断处理例程，而<code>GO_TO_KERNEL_LINE</code>精确地指向中断处理例程中的<code>stvec::write(TRAMPOLINE as usize, TrapMode::Direct);</code>语句。</li>
+</ul>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用code-debug"><a class="header" href="#使用code-debug">使用code-debug</a></h1>
+<ol>
+<li>在code-debug文件夹下<code>git pull</code>更新软件仓库，确保代码是最新的，然后按F5运行插件，这时会打开一个新的VSCode窗口。 <strong>后续操作步骤均在新窗口内完成！</strong></li>
+<li>在新窗口内，打开rCore-Tutorial-v3项目，按照上面的提示配置<code>launch.json</code>并保存。</li>
+<li>按F5键，即可开始使用本插件。</li>
+<li>清除所有断点（removeAllCliBreakpoints按钮）</li>
+<li>设置内核入口（setKernelInBreakpoints按钮）、出口断点（setKernelOutBreakpoints按钮）</li>
+<li>设置内核代码和用户程序代码的断点（这里有个bug尚未解决：必须得在initproc.rs的println!语句或<code>fn main()</code>处设置断点）</li>
+<li>按continue按钮开始运行rCore-Tutorial</li>
+<li>当运行到位于内核出口的断点时，插件会自动切换到用户态的断点</li>
+<li>在用户态程序中如果想观察内核内的执行流，可以点击gotokernel按钮，然后点击继续按钮，程序会停在内核的入口断点，这时，可以先把内核出口断点设置好（点击setKernelOutBreakpoints按钮），接下来，可以在内核态设置断点，点击继续，运行到内核的出口断点之后，会回到用户态。</li>
+</ol>
+<p><a href="https://www.bilibili.com/video/BV1gW4y1x7ys/?spm_id_from=333.999.0.0&amp;vd_source=ab418999e896fd33cc8eefbeab063d7f">视频演示</a></p>
+<h3 id="常见问题和解决办法"><a class="header" href="#常见问题和解决办法">常见问题和解决办法</a></h3>
+<h4 id="只能打内核态断点不能打用户态断点"><a class="header" href="#只能打内核态断点不能打用户态断点">只能打内核态断点，不能打用户态断点</a></h4>
+<p>很可能是因为边界断点失效。要解决这个问题，需要更改边界断点的位置。
+以rCore-Tutorial-v3为例，我们来看它的trap_return函数，这个函数用于从内核态进到用户态。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>122 #[no_mangle]
+123 pub fn trap_return() -&gt; ! {
+124     disable_supervisor_interrupt();
+125     set_user_trap_entry();
+126     let trap_cx_user_va = current_trap_cx_user_va();
+127     let user_satp = current_user_token();
+128     extern &quot;C&quot; {
+129         fn __alltraps();
+130         fn __restore();
+131     }
+132     let restore_va = __restore as usize - __alltraps as usize + TRAMPOLINE;
+133     //println!(&quot;before return&quot;);
+134     unsafe {
+135         asm!(
+136             &quot;fence.i&quot;,
+137             &quot;jr {restore_va}&quot;,
+138             restore_va = in(reg) restore_va,
+139             in(&quot;a0&quot;) trap_cx_user_va,
+140             in(&quot;a1&quot;) user_satp,
+141             options(noreturn)
+142         );
+143     }
+144 }
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们发现，第170行之后中断被关闭了，中断关闭后这个执行流不会被打断（多核呢？）所以124，125，126，127行都可以作为边界断点，可以逐一尝试。128-134行经过测试发现会卡在132行不动。
+如果边界断点是可行的（表现为，虽然用户态断点不能触发，但是右下角有提示进行了断点组切换）那就是gdb在设置用户态断点的时候发生了错误，导致 gdb 跟踪失败。这可能跟编译器有关系，目前有一个临时的解决办法，就是经过我们测试，第17行是可以正常工作的，其他行则不行：</p>
+<pre><pre class="playground"><code class="language-rust">1 #![no_std]
+2 #![no_main]
+3 
+4 extern crate user_lib;
+5 
+6 use user_lib::{println, getpid};
+7 
+8 use user_lib::{exec, fork, wait, yield_};
+9 
+10 #[no_mangle]
+11 fn main() -&gt; i32 {
+12 
+13 
+14     println!(&quot;aaaaaaaaaaaaaa&quot;);
+15     let a = getpid();
+16     println!(&quot;pid is {}&quot;,a);
+17    
+18 
+19 
+20     if fork() == 0 {
+21         exec(&quot;user_shell\0&quot;, &amp;[core::ptr::null::&lt;u8&gt;()]);
+22     } else {
+    //...
+</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="code-debug-调试器原理"><a class="header" href="#code-debug-调试器原理">code-debug 调试器原理</a></h1>
+<p>在本章中，我会简要地说明调试器的工作原理，方便您快速上手调试。</p>
+<p>由于大部分调试器的用户都在Qemu虚拟机上进行OS开发，我们先来讨论调试Qemu上的OS的情况。</p>
+<p>Qemu提供了GDBServer，我们让一个中间人（叫做Debug Adapter）和这个GDBServer交互（本插件的大部分代码都是Debug Adapter），Debug Adapter再和VSCode交互（这部分代码在src/frontend/extension.ts·里）:</p>
+<pre><code>VSCode -- Debug Adapter -- Qemu GdbServer
+</code></pre>
+<p>您在使用本插件进行OS调试时，可以在<code>Debug Console</code>中看到它们之间的消息传送。Json格式的消息是Debug Adapter传给VSCode的，文本格式的消息（例如<code>14-exec-next thread 1</code>）是Debug Adapter传给Qemu GDBServer的。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="核心代码讲解"><a class="header" href="#核心代码讲解">核心代码讲解</a></h1>
+<h2 id="调试工具实现"><a class="header" href="#调试工具实现">调试工具实现</a></h2>
+<p>TODO: 这一节所列出的代码有<strong>少量</strong>变动，应当更新</p>
+<h3 id="常用apigdb命令"><a class="header" href="#常用apigdb命令">常用API、GDB命令</a></h3>
+<h4 id="treeview命令注册"><a class="header" href="#treeview命令注册">TreeView命令注册</a></h4>
+<p>命令注册以后，用户可以直接点击界面上的按钮向插件进程发送消息</p>
+<pre><code class="language-ts">const setKernelInOutBreakpointsCmd = vscode.commands.registerCommand(
+    &quot;code-debug.setKernelInOutBreakpoints&quot;,
+    () =&gt; {
+        vscode.debug.activeDebugSession?.customRequest(&quot;setKernelInBreakpoints&quot;);
+        vscode.window.showInformationMessage(&quot;Kernel In Breakpoints Set&quot;);
+    }
+);
+</code></pre>
+<p>弹出消息窗口</p>
+<pre><code class="language-ts">vscode.window.showInformationMessage(&quot;message&quot;):
+</code></pre>
+<p>详见<code>src/frontend/extension.ts</code></p>
+<h4 id="插件进程--debug-adapter"><a class="header" href="#插件进程--debug-adapter">插件进程 &lt;==&gt; Debug Adapter</a></h4>
+<ol>
+<li>
+<p>插件进程 --&gt; Debug Adapter</p>
+<pre><code class="language-ts">vscode.debug.activeDebugSession?.customRequest(&quot;requestName&quot;);
+</code></pre>
+</li>
+<li>
+<p>Debug Adapter解析customRequest</p>
+<pre><code class="language-ts">protected customRequest(command: string, response: DebugProtocol.Response, args: any): void {
+    switch (command) {
+        case &quot;requestName&quot;:
+        this.sendEvent({ event: &quot;eventName&quot;, body: [&quot;test&quot;] } as DebugProtocol.Event);
+        this.sendResponse(response);
+        break;
+</code></pre>
+</li>
+<li>
+<p>插件进程监听Events和Responses</p>
+<pre><code class="language-ts">	let disposable = vscode.debug.registerDebugAdapterTrackerFactory(&quot;*&quot;, {
+	createDebugAdapterTracker() {
+		return {
+			//监听VSCode即将发送给Debug Adapter的消息
+			onWillReceiveMessage:(message)=&gt;{
+			    //...   	
+			},
+			onWillStartSession: () =&gt; { console.log(&quot;session started&quot;) },
+			//监听Debug Adapter发送给VSCode的消息
+			onDidSendMessage: (message) =&gt; {
+                //...
+				if (message.type === &quot;event&quot;) {
+					//...
+					}//处理自定义事件
+					else if (message.event === &quot;eventTest&quot;) {
+						//Do Something
+					}
+</code></pre>
+</li>
+</ol>
+<p>详见<code>src/frontend/extension.ts</code>、<code>src/mibase.ts</code></p>
+<h4 id="debug-adapter--backend"><a class="header" href="#debug-adapter--backend">Debug Adapter &lt;===&gt; Backend</a></h4>
+<p>以setBreakPointsRequest为例：</p>
+<pre><code class="language-ts">    // src/mibase.ts
+	//设置某一个文件的所有断点
+	protected setBreakPointsRequest(response: DebugProtocol.SetBreakpointsResponse, args: DebugProtocol.SetBreakpointsArguments): void {
+        //clearBreakPoints()、addBreakPoint() 实现见src/backend/mi2/mi2.ts
+		this.miDebugger.clearBreakPoints(args.source.path).then(() =&gt; { //清空该文件的断点
+            //......
+			const all = args.breakpoints.map(brk =&gt; {
+				return this.miDebugger.addBreakPoint({ file: path, line: brk.line, condition: brk.condition, countCondition: brk.hitCondition });
+			});
+            // ......
+			
+</code></pre>
+<p>详见src/mibase.ts</p>
+<h4 id="gdb命令"><a class="header" href="#gdb命令">GDB命令</a></h4>
+<ul>
+<li><code>add-symbol-file</code></li>
+<li><code>break</code></li>
+</ul>
+<p>详细的输出及返回数据的格式可参考<a href="https://sourceware.org/gdb/onlinedocs/gdb/GDB_002fMI.html#GDB_002fMI">官方文档</a></p>
+<h3 id="关键的寄存器和内存的数据获取"><a class="header" href="#关键的寄存器和内存的数据获取">关键的寄存器和内存的数据获取</a></h3>
+<p>VSCode 其实提供了几个重要的原生 request 接口，如 variablesRequest，其功能是展示 debugger 页中，左边VARIABLES 中变量的名字与值。每当 VSCode 的代码调试发生了暂停，VSCode 都会自动发送一个variablesRequest 向 DA 请求变量数据，那么我们只需要实现自定义的 variablesRequest，就可以做到自定义数据，如下我们可以在 TreeView 里展示寄存器</p>
+<p><img src="./docs/imgs/vscode-scope.png" alt="vscode-scope" /></p>
+<h3 id="断点检测与切换"><a class="header" href="#断点检测与切换">断点检测与切换</a></h3>
+<ol>
+<li>当增删断点或<code>stopped</code>事件发生时，向Debug Adapter请求当前所有的断点信息（以及哪些断点被设置，哪些被缓存）</li>
+</ol>
+<pre><code class="language-ts">    //extension.ts
+    onDidSendMessage: (message) =&gt; {
+        if (message.command === &quot;setBreakpoints&quot;){//如果Debug Adapter设置了一个断点
+            
+            vscode.debug.activeDebugSession?.customRequest(&quot;update&quot;);
+        }
+        if (message.type === &quot;event&quot;) {
+            //...
+            //如果（因为断点等）停下
+            if (message.event === &quot;stopped&quot;) {
+                //更新寄存器信息
+				//更新断点信息
+                vscode.debug.activeDebugSession?.customRequest(&quot;update&quot;);   
+            }
+    //...
+</code></pre>
+<ol start="2">
+<li>当用户设置新断点时，判断这个断点能否在当下就设置，若否,则保存（VSCode编辑器和DA的断点是分离的，Debug Adapter不能控制编辑器的断点，故采用这种设计。见<a href="https://stackoverflow.com/questions/55364690/is-it-possible-to-programmatically-set-breakpoints-with-a-visual-studio-code-ext">此</a>）</li>
+</ol>
+<pre><code class="language-ts">//src/mibase.ts-MI2DebugSession-setBreakPointsRequest
+    protected setBreakPointsRequest(
+		response: DebugProtocol.SetBreakpointsResponse,
+		args: DebugProtocol.SetBreakpointsArguments
+	): void {
+		this.miDebugger.clearBreakPoints(args.source.path).then(
+			() =&gt; {
+				//清空该文件的断点
+				const path = args.source.path;
+				const spaceName = this.addressSpaces.pathToSpaceName(path);
+				//保存断点信息，如果这个断点不是当前空间的（比如还在内核态时就设置用户态的
+				//断点），暂时不通知GDB设置断点。
+				//如果这个断点是当前地址空间，或者是内核入口断点，那么就通知GDB立即设置断点
+				if ((spaceName === this.addressSpaces.getCurrentSpaceName())
+				|| (path===&quot;src/trap/mod.rs&quot; &amp;&amp; args.breakpoints[0].line===30)
+				) {
+					// TODO rules can be set by user
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);
+					
+				} 
+				else {
+					this.sendEvent({
+						event: &quot;showInformationMessage&quot;,
+						body: &quot;Breakpoints Not in Current Address Space. Saved&quot;,
+					} as DebugProtocol.Event);
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);
+					return;
+				}
+                //令GDB设置断点
+				const all = args.breakpoints.map((brk) =&gt; {
+					return this.miDebugger.addBreakPoint({
+						file: path,
+						line: brk.line,
+						condition: brk.condition,
+						countCondition: brk.hitCondition,
+					});
+				});
+			//...
+        //更新断点信息
+		this.customRequest(&quot;update&quot;,{} as DebugAdapter.Response,{});
+	}
+</code></pre>
+<ol start="3">
+<li>当断点组切换（比如从内核态进到用户态），令GDB移除旧断点（断点信息仍然保存在<code>MIDebugSession.AddressSpaces.spaces</code>中），设置新断点。见<code>src/mibase.ts-AddressSpaces-updateCurrentSpace</code>。</li>
+</ol>
+<h3 id="到达内核边界时的处理"><a class="header" href="#到达内核边界时的处理">到达内核边界时的处理</a></h3>
+<h4 id="启动之后第一次进入内核"><a class="header" href="#启动之后第一次进入内核">启动之后第一次进入内核</a></h4>
+<p>触发断点时，检测这个断点是否是内核边界的断点。</p>
+<pre><code class="language-typescript">    //src/mibase.ts 
+    protected handleBreakpoint(info: MINode) {
+        //...
+        if (this.addressSpaces.pathToSpaceName(info.outOfBandRecord[0].output[3][1][4][1])==='kernel'){//如果是内核即将trap入用户态处的断点
+            this.addressSpaces.updateCurrentSpace('kernel');
+            this.sendEvent({ event: &quot;inKernel&quot; } as DebugProtocol.Event);
+            if (info.outOfBandRecord[0].output[3][1][3][1] === &quot;src/trap/mod.rs&quot; &amp;&amp; info.outOfBandRecord[0].output[3][1][5][1] === '135') {
+                this.sendEvent({ event: &quot;kernelToUserBorder&quot; } as DebugProtocol.Event);//发送event
+            }
+        }
+        //...
+    }
+</code></pre>
+<p>若是，添加符号表文件，移除当前所有断点，加载用户态程序的断点。</p>
+<pre><code class="language-ts">//extension.ts    
+else if (message.event === &quot;kernelToUserBorder&quot;) {
+    //到达内核态-&gt;用户态的边界
+    // removeAllCliBreakpoints();
+    vscode.window.showInformationMessage(&quot;will switched to &quot; + userDebugFile + &quot; breakpoints&quot;);
+    vscode.debug.activeDebugSession?.customRequest(&quot;addDebugFile&quot;, {
+        debugFilepath:
+            os.homedir() +
+            &quot;/rCore-Tutorial-v3/user/target/riscv64gc-unknown-none-elf/release/&quot; +
+            userDebugFile,
+    });
+    vscode.debug.activeDebugSession?.customRequest(
+        &quot;updateCurrentSpace&quot;,
+        &quot;src/bin/&quot; + userDebugFile + &quot;.rs&quot;
+    );
+
+</code></pre>
+<h4 id="进入用户态以后想要再次进入内核"><a class="header" href="#进入用户态以后想要再次进入内核">进入用户态以后，想要再次进入内核</a></h4>
+<p>点击gotokernel按钮，判断当前要设置的断点是不是内核入口断点，如果是直接通知GDB添加断点。</p>
+<pre><code class="language-ts">//src/mibase.ts 	
+    case &quot;goToKernel&quot;:
+			this.setBreakPointsRequest(
+				response as DebugProtocol.SetBreakpointsResponse,
+				{
+					source: { path: &quot;src/trap/mod.rs&quot; } as DebugProtocol.Source,
+					breakpoints: [{ line: 30 }] as DebugProtocol.SourceBreakpoint[],
+				} as DebugProtocol.SetBreakpointsArguments
+			);
+			this.sendEvent({ event: &quot;trap_handle&quot; } as DebugProtocol.Event);				
+			break;
+
+//src/mibase.ts
+	protected setBreakPointsRequest(
+		response: DebugProtocol.SetBreakpointsResponse,
+		args: DebugProtocol.SetBreakpointsArguments
+	): void {
+		this.miDebugger.clearBreakPoints(args.source.path).then(
+			() =&gt; {
+				//清空该文件的断点
+				const path = args.source.path;
+				const spaceName = this.addressSpaces.pathToSpaceName(path);
+				//保存断点信息，如果这个断点不是当前空间的（比如还在内核态时就设置用户态的断点），暂时不通知GDB设置断点
+				//如果这个断点是当前地址空间，或者是内核入口断点，那么就通知GDB立即设置断点
+				if ((spaceName === this.addressSpaces.getCurrentSpaceName()) || (path===&quot;src/trap/mod.rs&quot; &amp;&amp; args.breakpoints[0].line===30)
+				) {
+					// TODO rules can be set by user
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);					
+				} 
+				else {
+					this.sendEvent({
+						event: &quot;showInformationMessage&quot;,
+						body: &quot;Breakpoints Not in Current Address Space. Saved&quot;,
+					} as DebugProtocol.Event);
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);
+					return;
+				}
+				//令GDB设置断点
+				const all = args.breakpoints.map((brk) =&gt; {
+					return this.miDebugger.addBreakPoint({
+						file: path,
+						line: brk.line,
+						condition: brk.condition,
+						countCondition: brk.hitCondition,
+					});
+				});        
+</code></pre>
+<p>更新当前地址空间，更新符号表，</p>
+<pre><code class="language-ts">//extension.ts
+	else if (message.event === &quot;trap_handle&quot;) {							
+					//vscode.window.showInformationMessage(&quot;switched to trap_handle&quot;);
+					vscode.debug.activeDebugSession?.customRequest(&quot;addDebugFile&quot;, {
+						debugFilepath:
+							os.homedir() +
+							&quot;/rCore-Tutorial-v3/os/target/riscv64gc-unknown-none-elf/release/os&quot;,
+					});
+					vscode.debug.activeDebugSession?.customRequest(
+						&quot;updateCurrentSpace&quot;,
+						&quot;src/trap/mod.rs&quot;
+					);
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+                        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+                
+    </body>
+</html>

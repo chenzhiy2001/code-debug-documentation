@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>核心代码讲解 - code-debug Documentation</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="chapter_0.html">简介</a></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 安装 code-debug</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 使用 code-debug</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> code-debug 调试器原理</a></li><li class="chapter-item expanded "><a href="chapter_4.html" class="active"><strong aria-hidden="true">4.</strong> 核心代码讲解</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">code-debug Documentation</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="核心代码讲解"><a class="header" href="#核心代码讲解">核心代码讲解</a></h1>
+<h2 id="调试工具实现"><a class="header" href="#调试工具实现">调试工具实现</a></h2>
+<p>TODO: 这一节所列出的代码有<strong>少量</strong>变动，应当更新</p>
+<h3 id="常用apigdb命令"><a class="header" href="#常用apigdb命令">常用API、GDB命令</a></h3>
+<h4 id="treeview命令注册"><a class="header" href="#treeview命令注册">TreeView命令注册</a></h4>
+<p>命令注册以后，用户可以直接点击界面上的按钮向插件进程发送消息</p>
+<pre><code class="language-ts">const setKernelInOutBreakpointsCmd = vscode.commands.registerCommand(
+    &quot;code-debug.setKernelInOutBreakpoints&quot;,
+    () =&gt; {
+        vscode.debug.activeDebugSession?.customRequest(&quot;setKernelInBreakpoints&quot;);
+        vscode.window.showInformationMessage(&quot;Kernel In Breakpoints Set&quot;);
+    }
+);
+</code></pre>
+<p>弹出消息窗口</p>
+<pre><code class="language-ts">vscode.window.showInformationMessage(&quot;message&quot;):
+</code></pre>
+<p>详见<code>src/frontend/extension.ts</code></p>
+<h4 id="插件进程--debug-adapter"><a class="header" href="#插件进程--debug-adapter">插件进程 &lt;==&gt; Debug Adapter</a></h4>
+<ol>
+<li>
+<p>插件进程 --&gt; Debug Adapter</p>
+<pre><code class="language-ts">vscode.debug.activeDebugSession?.customRequest(&quot;requestName&quot;);
+</code></pre>
+</li>
+<li>
+<p>Debug Adapter解析customRequest</p>
+<pre><code class="language-ts">protected customRequest(command: string, response: DebugProtocol.Response, args: any): void {
+    switch (command) {
+        case &quot;requestName&quot;:
+        this.sendEvent({ event: &quot;eventName&quot;, body: [&quot;test&quot;] } as DebugProtocol.Event);
+        this.sendResponse(response);
+        break;
+</code></pre>
+</li>
+<li>
+<p>插件进程监听Events和Responses</p>
+<pre><code class="language-ts">	let disposable = vscode.debug.registerDebugAdapterTrackerFactory(&quot;*&quot;, {
+	createDebugAdapterTracker() {
+		return {
+			//监听VSCode即将发送给Debug Adapter的消息
+			onWillReceiveMessage:(message)=&gt;{
+			    //...   	
+			},
+			onWillStartSession: () =&gt; { console.log(&quot;session started&quot;) },
+			//监听Debug Adapter发送给VSCode的消息
+			onDidSendMessage: (message) =&gt; {
+                //...
+				if (message.type === &quot;event&quot;) {
+					//...
+					}//处理自定义事件
+					else if (message.event === &quot;eventTest&quot;) {
+						//Do Something
+					}
+</code></pre>
+</li>
+</ol>
+<p>详见<code>src/frontend/extension.ts</code>、<code>src/mibase.ts</code></p>
+<h4 id="debug-adapter--backend"><a class="header" href="#debug-adapter--backend">Debug Adapter &lt;===&gt; Backend</a></h4>
+<p>以setBreakPointsRequest为例：</p>
+<pre><code class="language-ts">    // src/mibase.ts
+	//设置某一个文件的所有断点
+	protected setBreakPointsRequest(response: DebugProtocol.SetBreakpointsResponse, args: DebugProtocol.SetBreakpointsArguments): void {
+        //clearBreakPoints()、addBreakPoint() 实现见src/backend/mi2/mi2.ts
+		this.miDebugger.clearBreakPoints(args.source.path).then(() =&gt; { //清空该文件的断点
+            //......
+			const all = args.breakpoints.map(brk =&gt; {
+				return this.miDebugger.addBreakPoint({ file: path, line: brk.line, condition: brk.condition, countCondition: brk.hitCondition });
+			});
+            // ......
+			
+</code></pre>
+<p>详见src/mibase.ts</p>
+<h4 id="gdb命令"><a class="header" href="#gdb命令">GDB命令</a></h4>
+<ul>
+<li><code>add-symbol-file</code></li>
+<li><code>break</code></li>
+</ul>
+<p>详细的输出及返回数据的格式可参考<a href="https://sourceware.org/gdb/onlinedocs/gdb/GDB_002fMI.html#GDB_002fMI">官方文档</a></p>
+<h3 id="关键的寄存器和内存的数据获取"><a class="header" href="#关键的寄存器和内存的数据获取">关键的寄存器和内存的数据获取</a></h3>
+<p>VSCode 其实提供了几个重要的原生 request 接口，如 variablesRequest，其功能是展示 debugger 页中，左边VARIABLES 中变量的名字与值。每当 VSCode 的代码调试发生了暂停，VSCode 都会自动发送一个variablesRequest 向 DA 请求变量数据，那么我们只需要实现自定义的 variablesRequest，就可以做到自定义数据，如下我们可以在 TreeView 里展示寄存器</p>
+<p><img src="./docs/imgs/vscode-scope.png" alt="vscode-scope" /></p>
+<h3 id="断点检测与切换"><a class="header" href="#断点检测与切换">断点检测与切换</a></h3>
+<ol>
+<li>当增删断点或<code>stopped</code>事件发生时，向Debug Adapter请求当前所有的断点信息（以及哪些断点被设置，哪些被缓存）</li>
+</ol>
+<pre><code class="language-ts">    //extension.ts
+    onDidSendMessage: (message) =&gt; {
+        if (message.command === &quot;setBreakpoints&quot;){//如果Debug Adapter设置了一个断点
+            
+            vscode.debug.activeDebugSession?.customRequest(&quot;update&quot;);
+        }
+        if (message.type === &quot;event&quot;) {
+            //...
+            //如果（因为断点等）停下
+            if (message.event === &quot;stopped&quot;) {
+                //更新寄存器信息
+				//更新断点信息
+                vscode.debug.activeDebugSession?.customRequest(&quot;update&quot;);   
+            }
+    //...
+</code></pre>
+<ol start="2">
+<li>当用户设置新断点时，判断这个断点能否在当下就设置，若否,则保存（VSCode编辑器和DA的断点是分离的，Debug Adapter不能控制编辑器的断点，故采用这种设计。见<a href="https://stackoverflow.com/questions/55364690/is-it-possible-to-programmatically-set-breakpoints-with-a-visual-studio-code-ext">此</a>）</li>
+</ol>
+<pre><code class="language-ts">//src/mibase.ts-MI2DebugSession-setBreakPointsRequest
+    protected setBreakPointsRequest(
+		response: DebugProtocol.SetBreakpointsResponse,
+		args: DebugProtocol.SetBreakpointsArguments
+	): void {
+		this.miDebugger.clearBreakPoints(args.source.path).then(
+			() =&gt; {
+				//清空该文件的断点
+				const path = args.source.path;
+				const spaceName = this.addressSpaces.pathToSpaceName(path);
+				//保存断点信息，如果这个断点不是当前空间的（比如还在内核态时就设置用户态的
+				//断点），暂时不通知GDB设置断点。
+				//如果这个断点是当前地址空间，或者是内核入口断点，那么就通知GDB立即设置断点
+				if ((spaceName === this.addressSpaces.getCurrentSpaceName())
+				|| (path===&quot;src/trap/mod.rs&quot; &amp;&amp; args.breakpoints[0].line===30)
+				) {
+					// TODO rules can be set by user
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);
+					
+				} 
+				else {
+					this.sendEvent({
+						event: &quot;showInformationMessage&quot;,
+						body: &quot;Breakpoints Not in Current Address Space. Saved&quot;,
+					} as DebugProtocol.Event);
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);
+					return;
+				}
+                //令GDB设置断点
+				const all = args.breakpoints.map((brk) =&gt; {
+					return this.miDebugger.addBreakPoint({
+						file: path,
+						line: brk.line,
+						condition: brk.condition,
+						countCondition: brk.hitCondition,
+					});
+				});
+			//...
+        //更新断点信息
+		this.customRequest(&quot;update&quot;,{} as DebugAdapter.Response,{});
+	}
+</code></pre>
+<ol start="3">
+<li>当断点组切换（比如从内核态进到用户态），令GDB移除旧断点（断点信息仍然保存在<code>MIDebugSession.AddressSpaces.spaces</code>中），设置新断点。见<code>src/mibase.ts-AddressSpaces-updateCurrentSpace</code>。</li>
+</ol>
+<h3 id="到达内核边界时的处理"><a class="header" href="#到达内核边界时的处理">到达内核边界时的处理</a></h3>
+<h4 id="启动之后第一次进入内核"><a class="header" href="#启动之后第一次进入内核">启动之后第一次进入内核</a></h4>
+<p>触发断点时，检测这个断点是否是内核边界的断点。</p>
+<pre><code class="language-typescript">    //src/mibase.ts 
+    protected handleBreakpoint(info: MINode) {
+        //...
+        if (this.addressSpaces.pathToSpaceName(info.outOfBandRecord[0].output[3][1][4][1])==='kernel'){//如果是内核即将trap入用户态处的断点
+            this.addressSpaces.updateCurrentSpace('kernel');
+            this.sendEvent({ event: &quot;inKernel&quot; } as DebugProtocol.Event);
+            if (info.outOfBandRecord[0].output[3][1][3][1] === &quot;src/trap/mod.rs&quot; &amp;&amp; info.outOfBandRecord[0].output[3][1][5][1] === '135') {
+                this.sendEvent({ event: &quot;kernelToUserBorder&quot; } as DebugProtocol.Event);//发送event
+            }
+        }
+        //...
+    }
+</code></pre>
+<p>若是，添加符号表文件，移除当前所有断点，加载用户态程序的断点。</p>
+<pre><code class="language-ts">//extension.ts    
+else if (message.event === &quot;kernelToUserBorder&quot;) {
+    //到达内核态-&gt;用户态的边界
+    // removeAllCliBreakpoints();
+    vscode.window.showInformationMessage(&quot;will switched to &quot; + userDebugFile + &quot; breakpoints&quot;);
+    vscode.debug.activeDebugSession?.customRequest(&quot;addDebugFile&quot;, {
+        debugFilepath:
+            os.homedir() +
+            &quot;/rCore-Tutorial-v3/user/target/riscv64gc-unknown-none-elf/release/&quot; +
+            userDebugFile,
+    });
+    vscode.debug.activeDebugSession?.customRequest(
+        &quot;updateCurrentSpace&quot;,
+        &quot;src/bin/&quot; + userDebugFile + &quot;.rs&quot;
+    );
+
+</code></pre>
+<h4 id="进入用户态以后想要再次进入内核"><a class="header" href="#进入用户态以后想要再次进入内核">进入用户态以后，想要再次进入内核</a></h4>
+<p>点击gotokernel按钮，判断当前要设置的断点是不是内核入口断点，如果是直接通知GDB添加断点。</p>
+<pre><code class="language-ts">//src/mibase.ts 	
+    case &quot;goToKernel&quot;:
+			this.setBreakPointsRequest(
+				response as DebugProtocol.SetBreakpointsResponse,
+				{
+					source: { path: &quot;src/trap/mod.rs&quot; } as DebugProtocol.Source,
+					breakpoints: [{ line: 30 }] as DebugProtocol.SourceBreakpoint[],
+				} as DebugProtocol.SetBreakpointsArguments
+			);
+			this.sendEvent({ event: &quot;trap_handle&quot; } as DebugProtocol.Event);				
+			break;
+
+//src/mibase.ts
+	protected setBreakPointsRequest(
+		response: DebugProtocol.SetBreakpointsResponse,
+		args: DebugProtocol.SetBreakpointsArguments
+	): void {
+		this.miDebugger.clearBreakPoints(args.source.path).then(
+			() =&gt; {
+				//清空该文件的断点
+				const path = args.source.path;
+				const spaceName = this.addressSpaces.pathToSpaceName(path);
+				//保存断点信息，如果这个断点不是当前空间的（比如还在内核态时就设置用户态的断点），暂时不通知GDB设置断点
+				//如果这个断点是当前地址空间，或者是内核入口断点，那么就通知GDB立即设置断点
+				if ((spaceName === this.addressSpaces.getCurrentSpaceName()) || (path===&quot;src/trap/mod.rs&quot; &amp;&amp; args.breakpoints[0].line===30)
+				) {
+					// TODO rules can be set by user
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);					
+				} 
+				else {
+					this.sendEvent({
+						event: &quot;showInformationMessage&quot;,
+						body: &quot;Breakpoints Not in Current Address Space. Saved&quot;,
+					} as DebugProtocol.Event);
+					this.addressSpaces.saveBreakpointsToSpace(args, spaceName);
+					return;
+				}
+				//令GDB设置断点
+				const all = args.breakpoints.map((brk) =&gt; {
+					return this.miDebugger.addBreakPoint({
+						file: path,
+						line: brk.line,
+						condition: brk.condition,
+						countCondition: brk.hitCondition,
+					});
+				});        
+</code></pre>
+<p>更新当前地址空间，更新符号表，</p>
+<pre><code class="language-ts">//extension.ts
+	else if (message.event === &quot;trap_handle&quot;) {							
+					//vscode.window.showInformationMessage(&quot;switched to trap_handle&quot;);
+					vscode.debug.activeDebugSession?.customRequest(&quot;addDebugFile&quot;, {
+						debugFilepath:
+							os.homedir() +
+							&quot;/rCore-Tutorial-v3/os/target/riscv64gc-unknown-none-elf/release/os&quot;,
+					});
+					vscode.debug.activeDebugSession?.customRequest(
+						&quot;updateCurrentSpace&quot;,
+						&quot;src/trap/mod.rs&quot;
+					);
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="chapter_3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="chapter_3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
