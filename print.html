@@ -201,7 +201,7 @@ end
     &quot;configurations&quot;: [
         {
             &quot;type&quot;: &quot;gdb&quot;,
-            &quot;request&quot;: &quot;launch&quot;,
+            &quot;request&quot;: &quot;attach&quot;,
             &quot;name&quot;: &quot;Attach to Qemu&quot;,
             &quot;executable&quot;: &quot;${userHome}/rCore-Tutorial-v3/os/target/riscv64gc-unknown-none-elf/release/os&quot;,
             &quot;target&quot;: &quot;:1234&quot;,//不能和Qemu开放的tcp端口重叠
@@ -242,13 +242,15 @@ end
                 &quot;-s&quot;,
                 &quot;-S&quot;
             ],
-         &quot;userSpaceDebuggeeFolder&quot;:&quot;${userHome}/rCore-Tutorial-v3/user/target/riscv64gc-unknown-none-elf/release/&quot;,
-         &quot;KERNEL_IN_BREAKPOINTS_LINE&quot;:65, // src/trap/mod.rs中内核入口行号。可能要修改
-         &quot;KERNEL_OUT_BREAKPOINTS_LINE&quot;:124, // src/trap/mod.rs中内核出口行号。可能要修改
+         &quot;userSpaceDebuggeeFolder&quot;: &quot;${userHome}/rCore-Tutorial-v3/user/target/riscv64gc-unknown-none-elf/release&quot;,
+         &quot;KERNEL_IN_BREAKPOINTS_LINE&quot;:39, // src/trap/mod.rs中内核入口行号。可能要修改
+         &quot;KERNEL_OUT_BREAKPOINTS_LINE&quot;:745, // src/trap/mod.rs中内核出口行号。可能要修改
          &quot;GO_TO_KERNEL_LINE&quot;:30, // src/trap/mod.rs中，用于从用户态返回内核的断点行号。在rCore-Tutorial-v3中，这是set_user_trap_entry函数中的stvec::write(TRAMPOLINE as usize, TrapMode::Direct);语句。
-         &quot;KERNEL_IN_BREAKPOINTS_FILENAME&quot;:&quot;src/trap/mod.rs&quot;,
-         &quot;KERNEL_OUT_BREAKPOINTS_FILENAME&quot;:&quot;src/trap/mod.rs&quot;,
-         &quot;GO_TO_KERNEL_FILENAME&quot;:&quot;src/trap/mod.rs&quot;
+         &quot;KERNEL_IN_BREAKPOINTS_FILENAME&quot;:&quot;${userHome}/rCore-Tutorial-v3/os/src/trap/mod.rs&quot;,
+         &quot;KERNEL_OUT_BREAKPOINTS_FILENAME&quot;:&quot;${userHome}/rCore-Tutorial-v3/os/src/trap/mod.rs&quot;,
+         &quot;GO_TO_KERNEL_FILENAME&quot;:&quot;&quot;,
+         &quot;kernel_memory_ranges&quot;:[[&quot;0xefffffffffffffff&quot;,&quot;0xffffffffffffffff&quot;]],
+         &quot;user_memory_ranges&quot;:[[&quot;0x0000000000000000&quot;,&quot;0xe000000000000000&quot;]]
         },
     ]
 }
